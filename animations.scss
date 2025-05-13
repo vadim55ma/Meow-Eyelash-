@@ -1,0 +1,63 @@
+// animations.scss
+
+// ===== КЛЮЧЕВЫЕ КАДРЫ =====
+
+// Кошка появляется сверху с плавным движением
+@keyframes catEntrance {
+  0% {
+    transform: translateY(-100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+// Лапки двигаются вверх-вниз (как будто делают реснички)
+@keyframes pawMove {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+// ===== МИКСИНЫ =====
+
+@mixin catEntranceAnimation($duration: 1.2s, $delay: 0s) {
+  animation: catEntrance $duration ease-out $delay forwards;
+}
+
+@mixin pawMoveAnimation($duration: 0.8s, $delay: 0s) {
+  animation: pawMove $duration ease-in-out $delay infinite;
+}
+
+// ===== КЛАССЫ ДЛЯ HTML =====
+
+// Общий блок с кошками (например, блок вверху сайта)
+.cat-banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 20px;
+
+  .cat {
+    width: 80px;
+    height: auto;
+    opacity: 0;
+    @include catEntranceAnimation();
+
+    // Лапки внутри кошки
+    .paw {
+      width: 20px;
+      height: 20px;
+      background-color: #000;
+      border-radius: 50%;
+      margin: 5px auto;
+      @include pawMoveAnimation();
+    }
+  }
+}
