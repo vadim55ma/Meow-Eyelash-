@@ -1,10 +1,11 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import sqlite3
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+import os
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='../')  # шаблоны в корне проекта
 
 # Инициализация базы данных
 def init_db():
@@ -17,18 +18,20 @@ def init_db():
 
 init_db()
 
+# Роут для главной страницы
+@app.route('/')
+def index():
+    return render_template('index.html')
+
 # Получение слотов на дату
 @app.route('/api/slots', methods=['GET'])
 def get_slots():
     date = request.args.get('date')
     conn = sqlite3.connect('appointments.db')
     c = conn.cursor()
-    
-    # Пример слотов с 10:00 до 18:00 с шагом 1 час
     all_slots = ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00']
     c.execute('SELECT time FROM appointments WHERE date = ? AND booked = 1', (date,))
     booked_slots = [row[0] for row in c.fetchall()]
-    
     slots = [{'time': slot, 'booked': slot in booked_slots} for slot in all_slots]
     conn.close()
     return jsonify(slots)
@@ -41,51 +44,34 @@ def book_appointment():
     time = data['time']
     name = data['name']
     phone = data['phone']
-
     conn = sqlite3.connect('appointments.db')
     c = conn.cursor()
-    
-    # Проверка, не занято ли время
     c.execute('SELECT booked FROM appointments WHERE date = ? AND time = ?', (date, time))
     result = c.fetchone()
     if result and result[0] == 1:
         conn.close()
         return jsonify({'error': 'Слот занят'}), 400
-
-    # Сохранение записи
     c.execute('INSERT OR REPLACE INTO appointments (date, time, name, phone, booked) VALUES (?, ?, ?, ?, ?)',
               (date, time, name, phone, 1))
     conn.commit()
     conn.close()
-
-    # Отправка email-to-SMS уведомления
     send_email_to_sms(name, phone, date, time)
-
     return jsonify({'status': 'success'})
 
-# Функция отправки email-to-SMS
+# Email-to-SMS
 def send_email_to_sms(name, phone, date, time):
-    # Настройки для отправки email (пример с Gmail)
     smtp_server = 'smtp.gmail.com'
     smtp_port = 587
-    sender_email = 'ВАШ_EMAIL@gmail.com'  # Замените на ваш email
-    sender_password = 'ВАШ_ПАРОЛЬ_ПРИЛОЖЕНИЯ'  # Используйте пароль приложения для Gmail
-
-    # Адрес email-to-SMS шлюза для IDC (уточните у оператора)
+    sender_email = 'ВАШ_EMAIL@gmail.com'
+    sender_password = 'ВАШ_ПАРОЛЬ_ПРИЛОЖЕНИЯ'
     recipient_sms_email = '+37377752820@sms.idc.md'
-
-    # Формирование сообщения
     message = f'Новая запись: {name}, {phone}, на {date} в {time}'
-    
-    # Создание email
     msg = MIMEMultipart()
     msg['From'] = sender_email
     msg['To'] = recipient_sms_email
-    msg['Subject'] = ''  # Email-to-SMS обычно игнорирует тему
+    msg['Subject'] = ''
     msg.attach(MIMEText(message, 'plain'))
-
     try:
-        # Подключение к SMTP-серверу
         server = smtplib.SMTP(smtp_server, smtp_port)
         server.starttls()
         server.login(sender_email, sender_password)
@@ -95,5 +81,6 @@ def send_email_to_sms(name, phone, date, time):
     except Exception as e:
         print(f'Ошибка отправки email-to-SMS: {e}')
 
+# Запуск сервера
 if __name__ == '__main__':
     app.run(debug=True)
