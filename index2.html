@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Запись на наращивание ресниц</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .slot { margin: 10px; padding: 10px; border: 1px solid #ccc; cursor: pointer; }
+        .slot.booked { background-color: #ddd; cursor: not-allowed; }
+        .notification { color: green; display: none; }
+        input, button { margin: 10px; padding: 8px; width: 200px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Запись на наращивание ресниц</h1>
+        <input type="text" id="clientName" placeholder="Ваше имя" required>
+        <input type="tel" id="clientPhone" placeholder="Ваш номер телефона (+373...)" required>
+        <input type="date" id="appointmentDate" required>
+        <div id="slots"></div>
+        <button onclick="bookAppointment()">Записаться</button>
+        <p id="notification" class="notification">Запись успешно создана!</p>
+    </div>
+
+    <script>
+        // Загрузка свободных слотов при выборе даты
+        document.getElementById('appointmentDate').addEventListener('change', loadSlots);
+
+        async function loadSlots() {
+            const date = document.getElementById('appointmentDate').value;
+            if (!date) return;
+
+            // Пример запроса к серверу для получения слотов
+            const response = await fetch(`/api/slots?date=${date}`);
+            const slots = await response.json();
+            const slotsDiv = document.getElementById('slots');
+            slotsDiv.innerHTML = '';
+
+            slots.forEach(slot => {
+                const slotElement = document.createElement('div');
+                slotElement.className = `slot ${slot.booked ? 'booked' : ''}`;
+                slotElement.textContent = `${slot.time} ${slot.booked ? '(Занято)' : '(Свободно)'}`;
+                if (!slot.booked) {
+                    slotElement.onclick = () => selectSlot(slot.time);
+                }
+                slotsDiv.appendChild(slotElement);
+            });
+        }
+
+        let selectedSlot = null;
+
+        function selectSlot(time) {
+            selectedSlot = time;
+            document.querySelectorAll('.slot').forEach(slot => {
+                slot.style.backgroundColor = slot.textContent.includes(time) ? '#e0e0e0' : '';
+            });
+        }
+
+        async function bookAppointment() {
+            const name = document.getElementById('clientName').value;
+            const phone = document.getElementById('clientPhone').value;
+            const date = document.getElementById('appointmentDate').value;
+
+            if (!name || !phone || !date || !selectedSlot) {
+                alert('Пожалуйста, заполните все поля и выберите время.');
+                return;
+            }
+
+            const data = { name, phone, date, time: selectedSlot };
+
+            const response = await fetch('/api/book', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            if (response.ok) {
+                document.getElementById('notification').style.display = 'block';
+                setTimeout(() => document.getElementById('notification').style.display = 'none', 3000);
+                loadSlots(); // Обновить слоты
+            } else {
+                alert('Ошибка при записи. Попробуйте снова.');
+            }
+        }
+    </script>
+</body>
+</html>
