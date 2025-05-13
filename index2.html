@@ -1,89 +1,131 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Запись на наращивание ресниц</title>
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; }
-        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-        .slot { margin: 10px; padding: 10px; border: 1px solid #ccc; cursor: pointer; }
-        .slot.booked { background-color: #ddd; cursor: not-allowed; }
-        .notification { color: green; display: none; }
-        input, button { margin: 10px; padding: 8px; width: 200px; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Meow Eyelash – Наращивание ресниц в Григориополе</title>
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Comfortaa', sans-serif;
+      background: #fff0f5;
+      color: #333;
+      overflow-x: hidden;
+    }
+    header {
+      background-color: #ffb6c1;
+      padding: 20px;
+      text-align: center;
+      animation: fadeIn 1s ease-out;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 32px;
+    }
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #fff;
+      font-weight: bold;
+    }
+    section {
+      padding: 30px 20px;
+      animation: slideUp 0.6s ease-out;
+    }
+    .services, .contacts, .reviews {
+      background: #ffe4e1;
+      margin: 20px auto;
+      max-width: 800px;
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .service-item {
+      margin-bottom: 10px;
+    }
+    footer {
+      background: #ffb6c1;
+      color: white;
+      text-align: center;
+      padding: 10px;
+    }
+    .whatsapp-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #25d366;
+      color: white;
+      border-radius: 50%;
+      padding: 15px;
+      font-size: 24px;
+      text-decoration: none;
+      z-index: 999;
+    }
+    .whatsapp-button:hover {
+      background-color: #128c7e;
+    }
+    iframe {
+      width: 100%;
+      height: 300px;
+      border: 0;
+      border-radius: 10px;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;} to {opacity: 1;}
+    }
+
+    @keyframes slideUp {
+      from {transform: translateY(30px); opacity: 0;}
+      to {transform: translateY(0); opacity: 1;}
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Запись на наращивание ресниц</h1>
-        <input type="text" id="clientName" placeholder="Ваше имя" required>
-        <input type="tel" id="clientPhone" placeholder="Ваш номер телефона (+373...)" required>
-        <input type="date" id="appointmentDate" required>
-        <div id="slots"></div>
-        <button onclick="bookAppointment()">Записаться</button>
-        <p id="notification" class="notification">Запись успешно создана!</p>
-    </div>
 
-    <script>
-        // Загрузка свободных слотов при выборе даты
-        document.getElementById('appointmentDate').addEventListener('change', loadSlots);
+<header>
+  <h1>Meow Eyelash</h1>
+  <nav>
+    <a href="#services">Услуги</a>
+    <a href="#reviews">Отзывы</a>
+    <a href="#contacts">Контакты</a>
+  </nav>
+</header>
 
-        async function loadSlots() {
-            const date = document.getElementById('appointmentDate').value;
-            if (!date) return;
+<section class="services" id="services">
+  <h2>Наши услуги</h2>
+  <div class="service-item">🥇 Классика — 200 руб.</div>
+  <div class="service-item">🥈 2D — 250 руб.</div>
+  <div class="service-item">🥉 3D — 300 руб.</div>
+  <div class="service-item">🐱 Кошачий эффект — 250 руб.</div>
+  <div class="service-item">🧚‍♀️ Цветные ресницы — 270 руб.</div>
+</section>
 
-            // Пример запроса к серверу для получения слотов
-            const response = await fetch(`/api/slots?date=${date}`);
-            const slots = await response.json();
-            const slotsDiv = document.getElementById('slots');
-            slotsDiv.innerHTML = '';
+<section class="reviews" id="reviews">
+  <h2>Отзывы клиентов</h2>
+  <p>⭐️⭐️⭐️⭐️⭐️ «Очень довольна! Реснички супер, держатся долго.»</p>
+  <p>⭐️⭐️⭐️⭐️⭐️ «Приятная атмосфера и профессиональный подход. Рекомендую!»</p>
+  <p>⭐️⭐️⭐️⭐️⭐️ «Делала 3D – смотрится шикарно, приду ещё!»</p>
+</section>
 
-            slots.forEach(slot => {
-                const slotElement = document.createElement('div');
-                slotElement.className = `slot ${slot.booked ? 'booked' : ''}`;
-                slotElement.textContent = `${slot.time} ${slot.booked ? '(Занято)' : '(Свободно)'}`;
-                if (!slot.booked) {
-                    slotElement.onclick = () => selectSlot(slot.time);
-                }
-                slotsDiv.appendChild(slotElement);
-            });
-        }
+<section class="contacts" id="contacts">
+  <h2>Контакты</h2>
+  <p>📍 Адрес: Григориополь, ул. К. Маркса, 174</p>
+  <p>📞 Телефон: <a href="tel:+37377752829">+373 777 52 829</a></p>
+  <p>📸 Instagram: <a href="https://www.instagram.com/meow.eyelash/" target="_blank">@meow.eyelash</a></p>
+  <h3>Карта</h3>
+  <iframe
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2748.1266443923524!2d29.308803!3d47.149565!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40c97f4a514a3b29%3A0x94a0cde3c6816ce!2z0JrRgNCw0LksINCf0L7Qu9Cw0L3RgdGC0YwsINCf0L7Qu9GM0L3QsNGH0LXRgdC60LjQuSDQtNC10YDQvdGL0Lkg0L3QsNCx0L7Qt9Cw0YDRgdC60LjQuQ!5e0!3m2!1sru!2s!4v1715599999999"
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade">
+  </iframe>
+</section>
 
-        let selectedSlot = null;
+<a class="whatsapp-button" href="https://wa.me/37377752820" target="_blank" title="Написать в WhatsApp">💬</a>
 
-        function selectSlot(time) {
-            selectedSlot = time;
-            document.querySelectorAll('.slot').forEach(slot => {
-                slot.style.backgroundColor = slot.textContent.includes(time) ? '#e0e0e0' : '';
-            });
-        }
+<footer>
+  <p>&copy; 2025 Meow Eyelash. Все права защищены.</p>
+</footer>
 
-        async function bookAppointment() {
-            const name = document.getElementById('clientName').value;
-            const phone = document.getElementById('clientPhone').value;
-            const date = document.getElementById('appointmentDate').value;
-
-            if (!name || !phone || !date || !selectedSlot) {
-                alert('Пожалуйста, заполните все поля и выберите время.');
-                return;
-            }
-
-            const data = { name, phone, date, time: selectedSlot };
-
-            const response = await fetch('/api/book', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            });
-
-            if (response.ok) {
-                document.getElementById('notification').style.display = 'block';
-                setTimeout(() => document.getElementById('notification').style.display = 'none', 3000);
-                loadSlots(); // Обновить слоты
-            } else {
-                alert('Ошибка при записи. Попробуйте снова.');
-            }
-        }
-    </script>
 </body>
 </html>
