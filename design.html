@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Meow Eyelash</title>
+<style>
+  body {
+    background: linear-gradient(135deg, #f5d300, #ff7e5f);
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  header {
+    text-align: center;
+    padding: 20px;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  }
+
+  h1 {
+    font-size: 3em;
+    margin: 0;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+
+  .cats-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .cat {
+    width: 200px;
+    height: 300px;
+    position: relative;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .cat:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+  }
+
+  .cat img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Анимация ресниц */
+  .lashes {
+    position: absolute;
+    bottom: 60px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+  }
+
+  .lash {
+    width: 4px;
+    height: 20px;
+    background: black;
+    border-radius: 2px;
+    animation: lashAnim 1s infinite;
+  }
+
+  @keyframes lashAnim {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+
+  /* Анимация глаз */
+  .eyes {
+    position: absolute;
+    top: 80px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+  }
+
+  .eye {
+    width: 20px;
+    height: 20px;
+    background: #000;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Анимация зрачка */
+  .pupil {
+    width: 8px;
+    height: 8px;
+    background: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    animation: pupilMove 2s infinite alternate;
+  }
+
+  @keyframes pupilMove {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(4px, 4px); }
+  }
+
+  /* Фоновые анимации */
+  @keyframes floating {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+  }
+
+  .background-floating {
+    animation: floating 4s ease-in-out infinite;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1 class="background-floating">Meow Eyelash</h1>
+</header>
+
+<div class="cats-container">
+  <!-- Кошки с ресницами -->
+  <div class="cat">
+    <img src="https://placekitten.com/200/300" alt="Кошка 1" />
+    <div class="eyes">
+      <div class="eye"><div class="pupil"></div></div>
+      <div class="eye"><div class="pupil"></div></div>
+    </div>
+    <div class="lashes">
+      <div class="lash"></div>
+      <div class="lash"></div>
+      <div class="lash"></div>
+    </div>
+  </div>
+  <div class="cat">
+    <img src="https://placekitten.com/201/300" alt="Кошка 2" />
+    <div class="eyes">
+      <div class="eye"><div class="pupil"></div></div>
+      <div class="eye"><div class="pupil"></div></div>
+    </div>
+    <div class="lashes">
+      <div class="lash"></div>
+      <div class="lash"></div>
+      <div class="lash"></div>
+    </div>
+  </div>
+  <!-- Добавьте больше кошек по желанию -->
+</div>
+
+<script>
+  // Можно добавить дополнительные анимации или интерактивность через JS
+</script>
+
+</body>
+</html>
