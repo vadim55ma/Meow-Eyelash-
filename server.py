@@ -1,7 +1,8 @@
 from flask import Flask, request, jsonify
 import sqlite3
-import requests
-import datetime
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 app = Flask(__name__)
 
@@ -57,25 +58,42 @@ def book_appointment():
     conn.commit()
     conn.close()
 
-    # Отправка SMS-уведомления
-    send_sms_notification(name, phone, date, time)
+    # Отправка email-to-SMS уведомления
+    send_email_to_sms(name, phone, date, time)
 
     return jsonify({'status': 'success'})
 
-# Функция отправки SMS
-def send_sms_notification(name, phone, date, time):
-    # В ПМР можно использовать локальные SMS-шлюзы, например, через IDC (Interdnestrcom) или сторонние API
-    # Пример с использованием Twilio (замените на локальный шлюз, если Twilio недоступен)
+# Функция отправки email-to-SMS
+def send_email_to_sms(name, phone, date, time):
+    # Настройки для отправки email (пример с Gmail)
+    smtp_server = 'smtp.gmail.com'
+    smtp_port = 587
+    sender_email = 'ВАШ_EMAIL@gmail.com'  # Замените на ваш email
+    sender_password = 'ВАШ_ПАРОЛЬ_ПРИЛОЖЕНИЯ'  # Используйте пароль приложения для Gmail
+
+    # Адрес email-to-SMS шлюза для IDC (уточните у оператора)
+    recipient_sms_email = '+37377752820@sms.idc.md'
+
+    # Формирование сообщения
+    message = f'Новая запись: {name}, {phone}, на {date} в {time}'
+    
+    # Создание email
+    msg = MIMEMultipart()
+    msg['From'] = sender_email
+    msg['To'] = recipient_sms_email
+    msg['Subject'] = ''  # Email-to-SMS обычно игнорирует тему
+    msg.attach(MIMEText(message, 'plain'))
+
     try:
-        # Для примера: отправка на ваш номер
-        admin_phone = '+37377752820'
-        message = f'Новая запись: {name}, {phone}, на {date} в {time}'
-        
-        # Замените на реальный SMS-шлюз, доступный в ПМР
-        # Например, через API Interdnestrcom или другой локальный сервис
-        print(f'SMS отправлено на {admin_phone}: {message}')  # Заглушка для теста
+        # Подключение к SMTP-серверу
+        server = smtplib.SMTP(smtp_server, smtp_port)
+        server.starttls()
+        server.login(sender_email, sender_password)
+        server.sendmail(sender_email, recipient_sms_email, msg.as_string())
+        server.quit()
+        print(f'Email-to-SMS отправлено на {recipient_sms_email}')
     except Exception as e:
-        print(f'Ошибка отправки SMS: {e}')
+        print(f'Ошибка отправки email-to-SMS: {e}')
 
 if __name__ == '__main__':
     app.run(debug=True)
