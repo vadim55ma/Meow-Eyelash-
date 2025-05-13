@@ -1,0 +1,220 @@
+<!DOCTYPE HTML>
+<html lang="ru">
+    <head>
+        <title>Meow Eyelash Григориополь</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <link rel="stylesheet" href="assets/css/main.css" />
+        <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+        <style>
+          /* дополнительные стили */
+          body {
+            background-color: #ffe6f0; /* Светло-розовый фон */
+            color: #333;
+          }
+          header h1{
+             color: #e44d7a;
+          }
+          header p{
+            color: #777;
+          }
+          .major h1{
+            color:#e44d7a;
+          }
+          .post header.major {
+            border-bottom: 2px solid #f9a7b0;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+          }
+          .appointment-button {
+            background-color: #f9a7b0;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            border: none;
+        }
+
+        .appointment-button:hover {
+            background-color: #e44d7a;
+        }
+
+        .appointment-button.with-meow {
+          position: relative; /* Чтобы позиционировать псевдоэлемент относительно кнопки */
+          padding-right: 40px; /* Чтобы было место для иконки мурлыканья */
+        }
+
+        .appointment-button.with-meow::after {
+          content: "💬"; /* Иконка облачка с текстом */
+          position: absolute;
+          right: 10px; /* Сдвигаем иконку вправо */
+          top: 50%;
+          transform: translateY(-50%); /* Центрируем иконку по вертикали */
+          font-size: 1.2em; /* Размер иконки */
+          opacity: 0; /* Начинаем с прозрачности 0 */
+          transition: opacity 0.3s ease, transform 0.3s ease; /* Плавный переход */
+        }
+
+        .appointment-button.with-meow:hover::after {
+          opacity: 1; /* При наведении показываем иконку */
+          transform: translateY(-50%) scale(1.2); /* Увеличиваем размер при наведении */
+        }
+
+        /* Добавляем стили для мурлыканья (можно использовать любую библиотеку или свои звуки) */
+        .meow-sound {
+          position: absolute;
+          top: -1000px; /* Прячем звук за пределами экрана */
+          left: -1000px;
+        }
+
+        </style>
+    </head>
+    <body class="is-preload">
+
+        <div id="wrapper">
+
+                <header id="header">
+                        <a href="index.html" class="logo">MeowEyelash</a>
+                         <p class="welcome">🌸 Добро пожаловать в мир красоты и нежности! 🌸</p>
+                    </header>
+
+                <nav id="nav">
+                        <ul class="links">
+                            <li class="active"><a href="index.html">Главная</a></li>
+                            <li><a href="#services">Услуги</a></li>
+                            <li><a href="#master">Мастер</a></li>
+                            <li><a href="#contact">Контакты</a></li>
+                        </ul>
+                        <ul class="icons">
+                            <li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+                           </ul>
+                    </nav>
+
+                <div id="main">
+
+                        <section class="post">
+                                <header class="major">
+                                    <span class="date"></span>
+                                    <h1>Кицул Ирина Юрьевна<br />
+                                    </h1>
+                                    <p>В студии Meow Eyelash мастер  создаёт настоящий кошачий шарм — от классики до роскошных объёмов. Мы заботимся о каждой клиентке: от первой реснички до комфортной атмосферы в мягком розовом стиле.</p>
+                                </header>
+                                <div class="image main"><img src="images/master.jpg" alt="Мастер Кицул Ирина Юрьевна" /></div>
+                                 <section class="services" id="services">
+                                    <h2>✨ Наши услуги:</h2>
+                                    <ul>
+                                        <li>Классическое наращивание (1D) — <span class="price">.... ₽</span>
+                                            <p class="description">Естественное и нежное усиление вашего взгляда.</p>
+                                        </li>
+                                        <li>Объёмное наращивание (2D–4D) — от <span class="price">... ₽</span>
+                                            <p class="description">Идеальный баланс густоты и лёгкости.</p>
+                                        </li>
+                                        <li>Голливудский объём (5D–10D) — <span class="price">... ₽</span>
+                                            <p class="description">Для дерзких и притягательных образов.</p>
+                                        </li>
+                                        <li>Кошачий эффект
+                                            <p class="description">Подчеркнём изгиб и придадим загадочности.</p>
+                                        </li>
+                                    </ul>
+                                </section>
+
+                                 <section class="why-us" id="master">
+                                    <h2>🐱 Почему выбирают нас:</h2>
+                                    <ul>
+                                        <li>💖 Профессиональный мастер с любовью к делу</li>
+                                        <li>🎀 Эстетика кошачьей грации в каждом движении</li>
+                                        <li>🌷 Уютный интерьер в розовых тонах</li>
+                                        <li>📅 Удобная запись — просто позвоните</li>
+                                        <li>📍  <a href="https://www.google.com/maps/place/Strada+Karl+Marx+174,+MD-4000,+Grigoriopol,+%D0%9C%D0%BE%D0%BB%D0%B4%D0%BE%D0%B2%D0%B0/@47.148175,29.2884921,17z/data=!3m1!4b1!4m6!3m5!1s0x40c942118c4105f9:0xaced5a8557259231!8m2!3d47.148175!4d29.291067!16s%2Fg%2F11fk26qkmg?hl=ru&entry=ttu&g_ep=EgoyMDI1MDUwNy4wIKXMDSoASAFQAw%3D%3D" target="_blank">Удобное расположение студии</a></li>
+                                    </ul>
+                                </section>
+                            </section>
+
+                    </div>
+
+                <footer id="footer">
+                        <section>
+                            <form method="post" action="#">
+                                <div class="fields">
+                                    <div class="field">
+                                        <label for="name">Имя</label>
+                                        <input type="text" name="name" id="name" />
+                                    </div>
+                                    <div class="field">
+                                        <label for="email">Email</label>
+                                        <input type="text" name="email" id="email" />
+                                    </div>
+                                    <div class="field">
+                                        <label for="message">Сообщение</label>
+                                        <textarea name="message" id="message" rows="3"></textarea>
+                                    </div>
+                                </div>
+                                <ul class="actions">
+                                    <li><input type="submit" value="Отправить сообщение" /></li>
+                                </ul>
+                            </form>
+                        </section>
+                        <section class="split contact"  id="contact">
+                            <section class="alt">
+                                <h3>Адрес</h3>
+                                <p>Григориополь, ул. К. Маркса, дом. 174</p>
+                            </section>
+                            <section>
+                                <h3>Телефон</h3>
+                                 <p><a href="tel:+37377752820">+37377752820</a></p>
+                            </section>
+                            <section>
+                                <h3>Email</h3>
+                                <p><a href="Meow_Eyelash@gmail.ru">MeowEyelash@gmail.ru</a></p>
+                            </section>
+                            <section>
+                                <h3>Социальные сети</h3>
+                                <ul class="icons alt">
+                                    <li><a href="#" class="icon alt fa-instagram"><span class="label">Instagram</span></a></li>
+                                   </ul>
+                            </section>
+                        </section>
+                         <section class="location-info">
+                            Местоположение: <a href="https://www.google.com/maps/place/Strada+Karl+Marx+174,+MD-4000,+Grigoriopol,+%D0%9C%D0%BE%D0%BB%D0%B4%D0%BE%D0%B2%D0%B0/@47.148175,29.2884921,17z/data=!3m1!4b1!4m6!3m5!1s0x40c942118c4105f9:0xaced5a8557259231!8m2!3d47.148175!4d29.291067!16s%2Fg%2F11fk26qkmg?hl=ru&entry=ttu&g_ep=EgoyMDI1MDUwNy4wIKXMDSoASAFQAw%3D%3D" target="_blank">Григориополь, Приднестровье, Молдова</a>
+                        </section>
+                         <section class="actions">
+                           <button class="appointment-button with-meow">Записаться</button>
+                        </section>
+                    </footer>
+
+        <script src="assets/js/jquery.min.js"></script>
+            <script src="assets/js/jquery.scrollex.min.js"></script>
+            <script src="assets/js/jquery.scrolly.min.js"></script>
+            <script src="assets/js/browser.min.js"></script>
+            <script src="assets/js/breakpoints.min.js"></script>
+            <script src="assets/js/util.js"></script>
+            <script src="assets/js/main.js"></script>
+             <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                // Плавная прокрутка к якорям
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', function (e) {
+                        e.preventDefault();
+
+                        document.querySelector(this.getAttribute('href')).scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    });
+                });
+
+                // Mурлыканье при клике на кнопку "Записаться"
+                const appointmentButton = document.querySelector('.appointment-button.with-meow');
+                if (appointmentButton) {
+                    appointmentButton.addEventListener('mouseenter', () => {
+                        // Создаем и воспроизводим звук
+                        const meowSound = new Audio('https://www.soundjay.com/buttons/sounds/meow-01.mp3'); // Замените на URL вашего звука
+                        meowSound.play();
+                    });
+                 }
+            });
+            </script>
+
+    </body>
+</html>
