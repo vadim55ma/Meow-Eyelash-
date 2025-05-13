@@ -218,3 +218,59 @@
 
     </body>
 </html>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Работы Ирины Брьевны</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: #f5f5f5;
+            font-family: Arial, sans-serif;
+        }
+
+        .instagram-btn {
+            padding: 20px 40px;
+            font-size: 24px;
+            background: #E1306C;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s, background 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .instagram-btn:hover {
+            background: #C13584;
+            transform: scale(1.05);
+        }
+
+        .instagram-btn:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+    <button class="instagram-btn" onclick="redirectToInstagram()">
+        Перейти в Instagram Ирины Брьевны
+    </button>
+
+    <script>
+        function redirectToInstagram() {
+            // Подтверждение перед переходом
+            const confirmed = confirm("Вы хотите перейти в Instagram?");
+            if (confirmed) {
+                window.location.href = "https://www.instagram.com/meow_eyelash_?igsh=cGFmZjRybnI1NDRo";
+            }
+        }
+    </script>
+</body>
+</html>
