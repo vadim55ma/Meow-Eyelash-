@@ -1,71 +1,68 @@
-@import 'libs/vars';
-@import 'libs/functions';
-@import 'libs/mixins';
-@import 'libs/vendor';
-@import 'libs/breakpoints';
-@import 'libs/html-grid';
-@import 'libs/fixed-grid';
-@import 'font-awesome.min.css';
-@import url('https://fonts.googleapis.com/css?family=Merriweather:300,700,300italic,700italic|Source+Sans+Pro:900');
+// Importing dependencies
+@import 'libs/vars';              // Global variables (e.g., colors, fonts, etc.)
+@import 'libs/functions';         // Utility functions (e.g., math, color manipulation)
+@import 'libs/mixins';            // Reusable code chunks (e.g., media queries, common styles)
+@import 'libs/vendor';            // Third-party or external styles
+@import 'libs/breakpoints';       // Media query breakpoints
+@import 'libs/html-grid';         // HTML grid system utilities
+@import 'libs/fixed-grid';        // Fixed grid layout utilities
+@import 'font-awesome.min.css';   // Font Awesome icons
+@import url('https://fonts.googleapis.com/css?family=Merriweather:300,700,300italic,700italic|Source+Sans+Pro:900'); // Google Fonts
 
 /*
-	Massively by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+    Massively by HTML5 UP
+    Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+    Original design by HTML5 UP (html5up.net)
 */
 
-// Breakpoints.
+// Breakpoints - Responsive Design
+@include breakpoints((
+    default:   (1681px,   null),   // Large desktop
+    xlarge:    (1281px,   1680px), // Medium desktop
+    large:     (981px,    1280px), // Tablets
+    medium:    (737px,    980px),  // Small tablets
+    small:     (481px,    736px),  // Small devices
+    xsmall:    (361px,    480px),  // Very small devices
+    xxsmall:   (null,     360px)   // Smallest devices
+));
 
-	@include breakpoints((
-		default:   (1681px,   null     ),
-		xlarge:    (1281px,   1680px   ),
-		large:     (981px,    1280px   ),
-		medium:    (737px,    980px    ),
-		small:     (481px,    736px    ),
-		xsmall:    (361px,    480px    ),
-		xxsmall:   (null,     360px    )
-	));
+// Color-related mixin for styling various components
+@mixin color($palette) {
+    @include color-typography($palette);   // Text styling
+    @include color-box($palette);          // Box/element background color
+    @include color-button($palette);       // Button color styles
+    @include color-form($palette);         // Form input and background colors
+    @include color-list($palette);         // List item styling
+    @include color-section($palette);      // Section background colors
+    @include color-table($palette);        // Table styling
+    @include color-pagination($palette);   // Pagination button styles
+}
 
-// Mixins.
+// Base Styles
+@import 'base/reset';       // CSS reset (to remove browser-specific styling)
+@import 'base/page';        // General page styles (layout, typography, etc.)
+@import 'base/typography';  // Global typography settings (fonts, font-sizes, line-heights, etc.)
 
-	@mixin color($p) {
-		@include color-typography($p);
-		@include color-box($p);
-		@include color-button($p);
-		@include color-form($p);
-		@include color-list($p);
-		@include color-section($p);
-		@include color-table($p);
-		@include color-pagination($p);
-	}
+// Component Styles - Reusable UI components
+@import 'components/row';        // Grid row styles
+@import 'components/box';        // Box styling (containers, sections)
+@import 'components/button';     // Button styles (including hover, focus states)
+@import 'components/form';       // Form elements (inputs, labels, buttons)
+@import 'components/icon';       // Icon styling
+@import 'components/image';      // Image styling (including responsive images)
+@import 'components/actions';    // Action buttons or links
+@import 'components/icons';      // Custom icon styles
+@import 'components/list';       // List styling (ordered, unordered, etc.)
+@import 'components/section';    // Section-specific styles (e.g., headers, footers)
+@import 'components/table';      // Table styles (headers, rows, borders)
+@import 'components/pagination'; // Pagination styling (e.g., buttons, next/prev)
 
-// Base.
 
-	@import 'base/reset';
-	@import 'base/page';
-	@import 'base/typography';
-
-// Component.
-
-	@import 'components/row';
-	@import 'components/box';
-	@import 'components/button';
-	@import 'components/form';
-	@import 'components/icon';
-	@import 'components/image';
-	@import 'components/actions';
-	@import 'components/icons';
-	@import 'components/list';
-	@import 'components/section';
-	@import 'components/table';
-	@import 'components/pagination';
-
-// Layout.
-
-	@import 'layout/wrapper';
-	@import 'layout/intro';
-	@import 'layout/header';
-	@import 'layout/nav';
-	@import 'layout/main';
-	@import 'layout/footer';
-	@import 'layout/navPanel';
+// Layout Styles - Structuring the overall page layout
+@import 'layout/wrapper';    // Page wrapper (padding, margin, full-width containers)
+@import 'layout/intro';      // Introduction section styling
+@import 'layout/header';     // Header section styles (navigation, branding)
+@import 'layout/nav';        // Navigation bar (mobile/desktop)
+@import 'layout/main';       // Main content area
+@import 'layout/footer';     // Footer section
+@import 'layout/navPanel';   // Sidebar or hidden navigation panel
